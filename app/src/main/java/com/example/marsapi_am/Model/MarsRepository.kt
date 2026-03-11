@@ -21,6 +21,8 @@ class MarsRepository (private val marsDao: MarsDao) {
 
 
 
+    // funcion que se conecta a internet en base a los código de respuesta hace acciones
+
     suspend fun  fetchDataFromInternetCoroutines(){
 
         try {
@@ -47,21 +49,30 @@ class MarsRepository (private val marsDao: MarsDao) {
     }
 
 
+
+    // recibe un terreno por id
     fun getMarsByid(id : Int) : LiveData<MarsRealState>{
         return getMarsByid(id)
     }
 
+
+    // obtiene el listado de terrenos
     val listAllTask: LiveData<List<MarsRealState>> = marsDao.getAllTerrains()
 
 
-    suspend fun  inserTerrain ( terrain : MarsRealState){
+    // insertar un terreno
+    suspend fun  insertTerrain ( terrain : MarsRealState){
         marsDao.insertTerrain(terrain)
     }
 
+
+    // actualizar terrenos
     suspend fun  updateTerrains(terrain: MarsRealState)
     {
-        marsDao.updateTerrins(terrain)
+        marsDao.updateTerrains(terrain)
     }
+
+    // eliminar todos los terrenos
     suspend fun deleteAll(){
         marsDao.deletAll()
     }

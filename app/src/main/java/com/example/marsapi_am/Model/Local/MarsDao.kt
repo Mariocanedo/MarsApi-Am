@@ -22,7 +22,7 @@ interface MarsDao {
 
 
     @Update
-    suspend fun updateTerrins(terrain: MarsRealState)
+    suspend fun updateTerrains(terrain: MarsRealState)
 
     @Delete
     suspend fun deleteTerrain(terrain: MarsRealState)
@@ -44,6 +44,6 @@ interface MarsDao {
 
 
     @Query("SELECT * FROM mars_table WHERE id = :id ")
-    fun getTaskBytype(id :Int): LiveData<MarsRealState>
+    fun getTerrainById(id :Int): LiveData<MarsRealState>
 
 }

@@ -10,12 +10,9 @@ import com.example.marsapi_am.Model.Remote.MarsRealState
 @Database( entities = [MarsRealState::class], version = 1)
   abstract class MarsDatabase : RoomDatabase (){
 
-
-
         // DAO para acceder a las operaciones de la tabla
 
         abstract fun marsDao(): MarsDao
-
 
         companion object{
 
