@@ -95,7 +95,7 @@ import kotlinx.coroutines.launch
 
         // obtener un elemento por id
 
-        fun getTerrainById(id:Int): LiveData<MarsRealState>{
+        fun getTerrainById(id: String): LiveData<MarsRealState>{
             return repository.getMarsByid(id)
         }
 

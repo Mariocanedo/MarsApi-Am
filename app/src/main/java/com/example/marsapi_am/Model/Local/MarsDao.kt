@@ -43,7 +43,6 @@ interface MarsDao {
     fun getTerrainByType(type: String): LiveData<MarsRealState>
 
 
-    @Query("SELECT * FROM mars_table WHERE id = :id ")
-    fun getTerrainById(id :Int): LiveData<MarsRealState>
-
+    @Query("SELECT * FROM mars_table WHERE id = :id")
+    fun getTerrainById(id: String): LiveData<MarsRealState>
 }

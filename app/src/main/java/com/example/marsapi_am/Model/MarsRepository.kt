@@ -23,36 +23,27 @@ class MarsRepository (private val marsDao: MarsDao) {
 
     // funcion que se conecta a internet en base a los código de respuesta hace acciones
 
-    suspend fun  fetchDataFromInternetCoroutines(){
-
+    suspend fun fetchDataFromInternetCoroutines() {
         try {
-            val response= retrofitClient.fetchMarsDataCoroutines()
-
-            when(response.code()) {
-
-                in 200..299 -> response?.body().let {
-
-                    if (it != null) {
-                        marsDao.insertAllTerrains(it)
-
-                    }
+            val response = retrofitClient.fetchMarsDataCoroutines()
+            when (response.code()) {
+                in 200..299 -> response.body()?.let { lista ->
+                    marsDao.insertAllTerrains(lista)       // Guardar en Room
+                   dataFromInternet.postValue(lista)
                 }
-
                 in 300..301 -> Log.d("REPO", "${response.code()} --- ${response.errorBody()}")
                 else -> Log.d("REPO", "${response.code()} --- ${response.errorBody()}")
             }
-        }catch (t: Throwable){
-
-            Log.e("REPO", "${t.message}")
+        } catch (t: Throwable) {
+            Log.e("REPO", "Error: ${t.message}")
         }
-
     }
 
 
-
     // recibe un terreno por id
-    fun getMarsByid(id : Int) : LiveData<MarsRealState>{
-        return getMarsByid(id)
+    fun getMarsByid(id : String) : LiveData<MarsRealState>{
+       // return getMarsByid(id)
+        return  marsDao.getTerrainById(id)
     }
 
 

@@ -38,20 +38,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-
         val firstFragment = FirstFragment()
 
-        if( savedInstanceState == null){
+        if (savedInstanceState == null) {
             // 🔹 Agregamos el Fragment al layout usando commitNow() para que sea sincrónico
 
             supportFragmentManager.beginTransaction()
-                .replace(R.id.nav_host_fragment_content_main,firstFragment)
+                .replace(R.id.nav_host_fragment_content_main, firstFragment)
                 .commitNow()
 
         }
 
 
-        viewModel.liveDataFromInternet.observe(this) {
+        /*  viewModel.liveDataFromInternet.observe(this) {
 
             lista ->
             Log.d("Mars_API", "Cantidad de elementos recibidos: ${lista.size}")
@@ -61,11 +60,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    }*/
+
+
     }
-
-
-
-
-
-
 }
