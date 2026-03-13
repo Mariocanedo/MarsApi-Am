@@ -24,6 +24,13 @@ class AdapterMars : RecyclerView.Adapter<AdapterMars.MarsVH>(){
 
 
 
+    // actualizar el RV
+       fun setList(list: List<MarsRealState>) {
+        listMarsItem = list
+        notifyDataSetChanged() // actualiza el RecyclerView
+    }
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MarsVH {
                    return MarsVH(MarsItemBinding.inflate(LayoutInflater.from(parent.context)))
     }

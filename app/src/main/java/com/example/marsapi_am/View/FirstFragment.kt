@@ -40,15 +40,17 @@ class FirstFragment : Fragment() {
         val adapter = AdapterMars()
 
         _binding.rvTerrains.adapter = adapter
-        _binding.rvTerrains.layoutManager = GridLayoutManager(context,2)
+        _binding.rvTerrains.layoutManager = GridLayoutManager(context, 2)
 
 
+
+        // actualiza RECYCLERVIEW
         viewModel.liveDataFromInternet.observe(viewLifecycleOwner, Observer { data ->
             data?.let {
-
-
                 // Mostrar en Logcat
                 Log.d("FirstFragment", "Datos recibidos desde internet: $it")
+                //  para que carguen los datos
+                adapter.setList(it)
             }
         })
 
@@ -59,19 +61,27 @@ class FirstFragment : Fragment() {
 
 
 
+        adapter.selectedTerrain.observe(viewLifecycleOwner) { selected ->
+            selected?.let {
+                viewModel.selected(it) // opcional, si quieres guardar en ViewModel
 
-        adapter.selectedTerrain.observe(viewLifecycleOwner, Observer {
-            it.let {
+                // Crear Bundle para pasar datos al segundo fragmento
+                val bundle = Bundle().apply {
+                    putString("id", it.id)
+                    putString("imgSrc", it.img_Src)
+                }
 
-                viewModel.selected(it)
-                // ir desde el primer fragmento al segundo completar código
+                // Crear instancia del fragmento
+                val secondFragment = SecondFragment()
+                secondFragment.arguments = bundle
+
+                // Reemplazar el fragmento actual
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.nav_host_fragment_content_main, secondFragment)
+                    .addToBackStack(null) // opcional, para que se pueda volver
+                    .commit()
             }
-
-
-        })
-
-
-
+        }
     }
 
     override fun onDestroyView() {
